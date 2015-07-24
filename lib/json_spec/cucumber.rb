@@ -18,6 +18,14 @@ Then /^the (?:JSON|json)(?: response)?(?: at "(.*)")? should( not)? be:$/ do |pa
   end
 end
 
+Then /^in any order the (?:JSON|json)(?: response)?(?: at "(.*)")? should( not)? be:$/ do |path, negative, json|
+  if negative
+    last_json.should_not be_json_eql(JsonSpec.remember(json)).at_path(path).in_any_order
+  else
+    last_json.should be_json_eql(JsonSpec.remember(json)).at_path(path).in_any_order
+  end
+end
+
 Then /^the (?:JSON|json)(?: response)?(?: at "(.*)")? should( not)? be file "(.+)"$/ do |path, negative, file_path|
   if negative
     last_json.should_not be_json_eql.to_file(file_path).at_path(path)
