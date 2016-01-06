@@ -18,7 +18,7 @@ Then /^the (?:JSON|json)(?: response)?(?: at "(.*)")? should( not)? be:$/ do |pa
   end
 end
 
-Then /^the (?:JSON|json)(?: response)?(?: at "(.*)")? with UUIDs should( not)? be:$/ do |path, negative, json|
+Then /^the (?:JSON|json)(?: response)?(?: at "(.*)")? ignoring UUIDs and Times should( not)? be:$/ do |path, negative, json|
   uuid_regexp = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/
   time_regexp = /[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{3}Z/
   last_json_stripped_uuids = last_json.gsub(uuid_regexp, 'UUID').gsub(time_regexp, 'TIME')
