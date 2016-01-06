@@ -18,6 +18,18 @@ Then /^the (?:JSON|json)(?: response)?(?: at "(.*)")? should( not)? be:$/ do |pa
   end
 end
 
+Then /^the (?:JSON|json)(?: response)?(?: at "(.*)")? with UUIDs should( not)? be:$/ do |path, negative, json|
+  uuid_regexp = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/
+  time_regexp = /[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{3}Z/
+  last_json_stripped_uuids = last_json.gsub(uuid_regexp, 'UUID').gsub(time_regexp, 'TIME')
+  expected_json_stripped_uuids = json.gsub(uuid_regexp, 'UUID').gsub(time_regexp, 'TIME')
+  if negative
+    last_json_stripped_uuids.should_not be_json_eql(JsonSpec.remember(expected_json_stripped_uuids)).at_path(path)
+  else
+    last_json_stripped_uuids.should be_json_eql(JsonSpec.remember(expected_json_stripped_uuids)).at_path(path)
+  end
+end
+
 Then /^in any order the (?:JSON|json)(?: response)?(?: at "(.*)")? should( not)? be:$/ do |path, negative, json|
   if negative
     last_json.should_not be_json_eql(JsonSpec.remember(json)).at_path(path).in_any_order
