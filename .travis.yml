@@ -1,5 +1,4 @@
 language: ruby
-branches: master
 gemfile:
   - gemfiles/rspec2.gemfile
   - gemfiles/rspec3.gemfile
