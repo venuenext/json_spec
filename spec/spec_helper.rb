@@ -1,3 +1,6 @@
+require 'coveralls'
+Coveralls.wear!
+
 require "json_spec"
 
 RSpec.configure do |config|
