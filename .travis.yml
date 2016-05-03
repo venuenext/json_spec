@@ -16,3 +16,8 @@ rvm:
   - "2.3.4"
   - "2.4.1"
   - ruby-head
+matrix:
+  allow_failures:
+    - rvm: 1.9.2
+    - rvm: 1.9.3
+  fast_finish: true
