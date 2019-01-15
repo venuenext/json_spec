@@ -46,28 +46,31 @@ describe JsonSpec::Matchers::HaveJsonType do
     expect(%(10.0)).to have_json_type(Numeric)
   end
 
-  it "provides a failure message for should" do
+  it "provides a failure message" do
     matcher = have_json_type(Numeric)
     matcher.matches?(%("foo"))
-    expect(matcher.failure_message_for_should).to eq("Expected JSON value type to be Numeric, got String")
+    expect(matcher.failure_message).to            eq "Expected JSON value type to be Numeric, got String"
+    expect(matcher.failure_message_for_should).to eq "Expected JSON value type to be Numeric, got String" # RSpec 2 interface
   end
 
-  it "provides a failure message for should not" do
+  it "provides a failure message for negation" do
     matcher = have_json_type(Numeric)
-    matcher.matches?(%(10))
-    expect(matcher.failure_message_for_should_not).to eq("Expected JSON value type to not be Numeric, got Fixnum")
+    matcher.matches?(%(10.0))
+
+    expect(matcher.failure_message_when_negated).to   eq "Expected JSON value type to not be Numeric, got Float"
+    expect(matcher.failure_message_for_should_not).to eq "Expected JSON value type to not be Numeric, got Float" # RSpec 2 interface
   end
 
   it "provides a description message" do
     matcher = have_json_type(String)
     matcher.matches?(%({"id":1,"json":"spec"}))
-    expect(matcher.description).to eq(%(have JSON type "String"))
+    expect(matcher.description).to eq %(have JSON type "String")
   end
 
   it "provides a description message with path" do
     matcher = have_json_type(String).at_path("json")
     matcher.matches?(%({"id":1,"json":"spec"}))
-    expect(matcher.description).to eq(%(have JSON type "String" at path "json"))
+    expect(matcher.description).to eq %(have JSON type "String" at path "json")
   end
 
   context "somewhat uselessly" do

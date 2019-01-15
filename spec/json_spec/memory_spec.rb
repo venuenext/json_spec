@@ -7,12 +7,12 @@ describe JsonSpec::Memory do
 
   it "memorizes strings" do
     JsonSpec.memorize(:key, "value")
-    expect(JsonSpec.memory).to eq({:key => "value"})
+    expect(JsonSpec.memory).to eq({ key: "value" })
   end
 
   it "symbolizes keys" do
     JsonSpec.memorize("key", "value")
-    expect(JsonSpec.memory).to eq({:key => "value"})
+    expect(JsonSpec.memory).to eq({ key: "value" })
   end
 
   it "regurgitates unremembered strings" do

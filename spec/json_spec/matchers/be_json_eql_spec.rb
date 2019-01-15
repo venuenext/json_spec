@@ -48,8 +48,8 @@ describe JsonSpec::Matchers::BeJsonEql do
   it "ignores excluded-by-default hash keys" do
     expect(JsonSpec.excluded_keys).not_to be_empty
 
-    actual = expected = {"json" => "spec"}
-    JsonSpec.excluded_keys.each{|k| actual[k] = k }
+    actual = expected = { "json" => "spec" }
+    JsonSpec.excluded_keys.each { |k| actual[k] = k }
     expect(actual.to_json).to be_json_eql(expected.to_json)
   end
 
@@ -119,7 +119,9 @@ describe JsonSpec::Matchers::BeJsonEql do
   end
 
   it "raises an error when not given expected JSON" do
-    expect{ expect(%({"id":1,"json":"spec"})).to be_json_eql }.to raise_error
+    expect{ expect(%({"id":1,"json":"spec"})).to be_json_eql }.to raise_error do |error|
+      expect(error.message).to eq("Expected equivalent JSON not provided")
+    end
   end
 
   it "matches file contents" do

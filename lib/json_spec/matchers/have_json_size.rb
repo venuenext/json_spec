@@ -6,11 +6,13 @@ module JsonSpec
 
       def initialize(size)
         @expected = size
+        @path = nil
       end
 
       def matches?(json)
         ruby = parse_json(json, @path)
-        @actual = Enumerable === ruby ? ruby.size : 1
+        raise EnumerableExpected.new(ruby) unless Enumerable === ruby
+        @actual = ruby.size
         @actual == @expected
       end
 
@@ -19,13 +21,15 @@ module JsonSpec
         self
       end
 
-      def failure_message_for_should
+      def failure_message
         message_with_path("Expected JSON value size to be #{@expected}, got #{@actual}")
       end
+      alias :failure_message_for_should :failure_message
 
-      def failure_message_for_should_not
+      def failure_message_when_negated
         message_with_path("Expected JSON value size to not be #{@expected}, got #{@actual}")
       end
+      alias :failure_message_for_should_not :failure_message_when_negated
 
       def description
         message_with_path(%(have JSON size "#{@expected}"))

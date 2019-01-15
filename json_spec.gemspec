@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |gem|
   gem.name    = "json_spec"
-  gem.version = "1.1.1"
+  gem.version = "1.1.5"
 
   gem.authors     = ["Steve Richert"]
   gem.email       = ["steve.richert@gmail.com"]
@@ -19,7 +19,6 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "rake", "~> 10.0"
   gem.add_development_dependency 'coveralls'
 
-  gem.files         = `git ls-files`.split($\)
-  gem.test_files    = gem.files.grep(/^(features|spec)/)
-  gem.require_paths = ["lib"]
+  gem.files      = `git ls-files`.split($\)
+  gem.test_files = gem.files.grep(/^(features|spec)/)
 end
